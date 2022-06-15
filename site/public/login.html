@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login</title>
+    
+    
+    <link rel="stylesheet" href="./css/loginStyle.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <script src="https://kit.fontawesome.com/26f810383b.js" crossorigin="anonymous"></script>
+    <script src="./js/funcoes.js"></script>
+
+</head>
+
+<body>
+
+    <!--Header-->
+
+    <div class="header">
+        <div class="container_header_main">
+            <h1><a href="index.html">Go, Music!</a></h1>
+            <ul class="menu">
+                <li>HOME</li>
+                <li>CONHEÇA-ME</li>
+                <li>NOVIDADES</li>
+            </ul>
+
+            <ul class="cadLog">
+                <li>CADASTRO</li>
+                <li>LOGIN</li>
+            </ul>
+
+        </div>
+    </div>
+    <!--header fim-->
+
+    <div class="container_main">
+        <div class="container_login">
+            <div class="left_side">
+                <div class="container_left_side_elements">
+                    <a href="index.html"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                </div>
+            </div>
+
+            <div class="right_side">
+                <div class="container_right_side_login">
+                    <h2>Login</h2>
+                    <ul class="form_login">
+                        
+                        <li>Email</li>
+                        <input id="email_input" type="text">
+                        <li>Senha</li>
+                        <input id="senha_input" type="password">
+                        
+                    </ul>
+
+                    <button onclick="entrar()">Entre</button>
+
+                    <a id="redirect_cadastro" href="cadastro.html">Ainda não tem uma conta? Cadastre-se</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+
+
+    function entrar() {
+        
+
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            alert("Mensagem de erro para todos os campos em branco");
+            
+            return false;
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_USUARIO = json.emailUsuario;
+                    sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+
+                    setTimeout(function () {
+                        window.location = "index.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+   
+
+</script>

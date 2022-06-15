@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Prompt:ital,wght@1,600&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    background: url('../assets/imgs/main_background_color.jpg');
+    background-size: cover;
+}
+
+.header {
+    display: flex;
+    background: #FFFFFFED;
+}
+
+.container_header_main {
+    justify-content: space-around;
+    display: flex;
+    height: 60px;
+    width: 100%;
+    align-items: center;
+    border-bottom: 1px solid black;
+    overflow: hidden;
+}
+
+.container_header_main h1 a {
+    text-decoration: none;
+    color: black
+}
+
+.container_header_main h1 {
+    transform: scale(1);
+    transition: all .2s ease-in-out;
+    transition-duration: 0.16s;
+}
+
+.container_header_main h1:hover {
+    transform: scale(1.03);
+    transition: all .2s ease-in-out;
+    transition-duration: 0.16s;
+    text-shadow: 3px 2px 1px #FEC401;
+    cursor: pointer
+}
+
+.container_header_main ul li {
+    list-style: none;
+}
+
+.container_header_main .menu {
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+}
+
+.container_header_main .cadLog {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    text-align: center;
+}
+
+.container_main {
+    display: flex;
+    height: 90vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.container_cadastro {
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+    width: 800px;
+    background: #FFFFFF;
+    border-radius: 30px;
+    box-shadow: 0px 4px 5px black;
+}
+
+.container_cadastro .left_side {
+    height: 100%;
+    width: 30%;
+    background: url('https://images.unsplash.com/photo-1564264764238-7e04d6b46f9c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80');
+    background-size: auto;
+
+    border-right: 1px solid black;
+}
+
+.container_cadastro .right_side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 70%;
+    background: #FFFFFF;
+}
+
+.right_side .container_right_side_cadastro {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    margin: 90px;
+    text-align: center;
+}
+
+.right_side .container_right_side_cadastro h2 {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.right_side .container_right_side_cadastro .form_cadastro {
+    overflow: hidden;
+}
+
+.right_side .container_right_side_cadastro .form_cadastro li {
+    margin: 8px;
+}
+
+.right_side .container_right_side_cadastro button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    border-style: none;
+    color: rgb(30, 30, 30);
+    background-color: #ffd139;
+    font-size: 18px;
+    /* border-radius: 30px; */
+    height: 40px;
+    width: 145px;
+    transition: all .1s ease-in-out;
+    transition-duration: 0.15s
+}
+
+.right_side .container_right_side_cadastro button:hover {
+    /* box-shadow: 2px 2px 2px #bc9000; */
+    color: #ffd139;
+    font-weight: 500;
+    /* border-radius: 10px; */
+    background-color: rgb(30, 30, 30);
+    transition: all .1s ease-in-out;
+    transition-duration: 0.15s;
+    cursor: pointer;
+}
+
+.form_cadastro input {
+    text-align: center;
+    height: 20px
+}
+
+.left_side .container_left_side_elements {
+    margin: 20px;
+}
+
+.left_side .container_left_side_elements a {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 30px;
+    padding-left: 10px;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 25px;
+    transition: all .1s ease-in-out;
+    transition-duration: 0.15s;
+}
+
+.left_side .container_left_side_elements a:hover {
+    background: black;
+    color: #ffd139;
+    border-radius: 100px;
+    transition: all .1s ease-in-out;
+    transition-duration: 0.15s;
+}
+
+#redirect_login {
+    font-weight: 500;
+    text-decoration: none;
+    color: #FEC401;
+}
+
+#redirect_login:hover {
+    color: black
+}
