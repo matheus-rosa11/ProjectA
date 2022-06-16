@@ -46,21 +46,45 @@ body {
     cursor: pointer
 }
 
-.container_header_main ul li {
-    list-style: none;
-}
-
 .container_header_main .menu {
     display: flex;
+    align-items: center;
     width: 400px;
+    height: 30px;
     justify-content: space-between;
+}
+
+.container_header_main ul li {
+    list-style: none;
+    border-bottom: 2px solid #ffffff00;
+}
+
+.container_header_main ul a {
+    text-decoration: none;
+}
+
+.container_header_main ul a li {
+    color: #000;
+}
+
+.container_header_main ul a li:hover {
+    border-bottom: 2px solid #FEC401;
+    cursor: pointer;
 }
 
 .container_header_main .cadLog {
     display: flex;
-    flex-direction: column;
-    width: 120px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 160px;
+    height: 30px;
     text-align: center;
+}
+
+.container_header_main .cadLog li {
+    color: #000;
+    border: 2px solid #ffffff00;
 }
 
 .container_main {

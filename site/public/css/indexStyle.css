@@ -69,6 +69,7 @@ body {
 
 .container_header_main ul a li:hover {
     border-bottom: 2px solid #FEC401;
+    cursor: pointer;
 }
 
 .container_header_main .cadLog {
@@ -86,10 +87,6 @@ body {
     border: 2px solid #ffffff00;
 }
 
-.container_header_main .cadLog li:hover {
-    border-bottom: 2px solid #FEC401;
-    cursor: pointer;
-}
 
 #barra:hover {
     cursor: default;
@@ -182,11 +179,29 @@ body {
 
 .container_lista {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     background: #FFFFFF;
 }
 
-.container_lista ul {
-    width: 200px;
-    margin: 20px
+.container_lista .lista {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.container_lista .lista .container_album {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    background: #ffffff00;
+}
+
+.container_lista .lista .container_album .album {
+    align-self: center;
+    height: 100%;
 }
