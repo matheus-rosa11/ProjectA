@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login</title>
-    
-    
+
+
     <link rel="stylesheet" href="./css/loginStyle.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 
@@ -56,12 +56,12 @@
                 <div class="container_right_side_login">
                     <h2>Login</h2>
                     <ul class="form_login">
-                        
+
                         <li>Email</li>
                         <input id="email_input" type="text">
                         <li>Senha</li>
                         <input id="senha_input" type="password">
-                        
+
                     </ul>
 
                     <button onclick="entrar()">Entre</button>
@@ -80,14 +80,14 @@
 
 
     function entrar() {
-        
+
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
             alert("Mensagem de erro para todos os campos em branco");
-            
+
             return false;
         }
 
@@ -113,9 +113,11 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
 
-                    sessionStorage.EMAIL_USUARIO = json.emailUsuario;
-                    sessionStorage.NOME_USUARIO = json.nomeUsuario;
                     sessionStorage.ID_USUARIO = json.idUsuario;
+                    sessionStorage.NOME_USUARIO = json.nomeUsuario;
+                    sessionStorage.EMAIL_USUARIO = json.emailUsuario;
+                    sessionStorage.ESTILO_USUARIO = json.estiloFavorito;
+                    sessionStorage.ARTISTA_USUARIO = json.artistaFavorito;
 
                     setTimeout(function () {
                         window.location = "index.html";
@@ -139,6 +141,6 @@
         return false;
     }
 
-   
+
 
 </script>

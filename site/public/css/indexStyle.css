@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -164,13 +165,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 250px;
+    height: 150px;
     background: black;
 }
 
 .banner strong {
     color: #FEC401;
-
 }
 
 .banner h2 {
@@ -222,6 +222,37 @@ body {
 .container_lista .lista .container_album .album {
     align-self: center;
     height: 100%;
+}
+
+.container_estilos {
+    height: 130px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #FFFFFF;
+}
+
+#estilos {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.estilos_musicais {
+    color: #000000;
+    font-size: 20px;
+    transition: all .1s ease-in-out;
+    transition-duration: 0.1s;
+}
+
+.estilos_musicais:hover {
+    transition: all .1s ease-in-out;
+    transition-duration: 0.1s;
+    color: #FEC401;
+    cursor: pointer;
 }
 
 

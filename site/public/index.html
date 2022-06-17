@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./css/indexStyle.css">
 </head>
 
-<body onload="carregarAlbuns()">
+<body onload="carregarAlbuns(), carregarEstilos()">
     <div class="header">
         <div class="container_header_main">
             <h1><a href="#">Go, Music!</a></h1>
@@ -56,32 +56,32 @@
 
         <div class="container_lista" id="container_create_divs">
             <ul class="lista" id="artistas">
-                <li onclick="votar(1)" class="container_album">
+                <li onclick="votarArtista(1)" class="container_album">
                     <img class="album" src="">
-                    <strong id="top1" class="nome_artista">joao</strong>
+                    <strong id="top1" class="nome_artista"></strong>
                 </li>
 
-                <li onclick="votar(2)" class="container_album">
+                <li onclick="votarArtista(2)" class="container_album">
                     <img class="album" src="">
                     <strong id="top2" class="nome_artista"></strong>
                 </li>
 
-                <li onclick="votar(3)" class="container_album">
+                <li onclick="votarArtista(3)" class="container_album">
                     <img class="album" src="">
                     <strong id="top3" class="nome_artista"></strong>
                 </li>
 
-                <li onclick="votar(4)" class="container_album">
+                <li onclick="votarArtista(4)" class="container_album">
                     <img class="album" src="">
                     <strong id="top4" class="nome_artista"></strong>
                 </li>
 
-                <li onclick="votar(5)" class="container_album">
+                <li onclick="votarArtista(5)" class="container_album">
                     <img class="album" src="">
                     <strong id="top5" class="nome_artista"></strong>
                 </li>
 
-                <li onclick="votar(6)" class="container_album">
+                <li onclick="votarArtista(6)" class="container_album">
                     <img class="album" src="">
                     <strong id="top6" class="nome_artista"></strong>
                 </li>
@@ -94,13 +94,13 @@
             <h2 class="titulo_lista">Qual o seu <strong>estilo musical</strong> favorito?</h2>
         </div>
 
-        <div class="container_lista">
+        <div class="container_estilos">
             <ul class="lista" id="estilos">
-                <li>Rock</li>
-                <li>Pop</li>
-                <li>K-Pop</li>
-                <li>Indie</li>
-                <li id="opcao_outro">Outro</li>
+                <li onclick="votarEstilo(1)" class="estilos_musicais">Rock</li>
+                <li onclick="votarEstilo(2)" class="estilos_musicais">Pop</li>
+                <li onclick="votarEstilo(3)" class="estilos_musicais">K-Pop</li>
+                <li onclick="votarEstilo(4)" class="estilos_musicais">Indie</li>
+                <li onclick="votarEstilo(5)" class="estilos_musicais">Piseiro</li>
             </ul>
         </div>
 
@@ -113,21 +113,21 @@
 <script>
 
     var artistas = [];
+    var estilos = [];
 
-    function votar(posicao) {
+    function votarArtista(posicao) {
 
-        var selecionado;
+        var decisao;
 
         if (sessionStorage.length <= 0) {
             alert('Faça Login para conseguir votar!')
+            window.location = 'login.html';
         } else {
     
             for (let i = 0; i < artistas.length; i++) {
-    
                 if (posicao - 1 == i) {
-                    selecionado = artistas[i];
+                    decisao = artistas[i];
                 }
-    
             }
     
             fetch("/usuarios/votoUsuario", {
@@ -138,7 +138,7 @@
                 body: JSON.stringify({
                     // crie um atributo que recebe o valor recuperado aqui
                     // Agora vá para o arquivo routes/usuario.js
-                    votoServer: selecionado,
+                    votoServer: decisao,
                     emailServer: sessionStorage.EMAIL_USUARIO
                 })
             }).then(function (resposta) {
@@ -148,6 +148,57 @@
                 if (resposta.ok) {
     
                     window.alert("Voto cadastrado com sucesso!");
+                    window.location = 'index.html';
+
+                    registrarVotoArtista(decisao);
+                    
+                } else {
+                    throw ("Houve um erro ao tentar votar! Tente reiniciar a página.");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    
+            return false;
+
+        }
+        
+    }
+
+    function votarEstilo(posicao) {
+        var decisao;
+
+        if (sessionStorage.length <= 0) {
+            alert('Faça Login para votar!')
+            window.location = 'index.html';
+        } else {
+
+            for (let i = 0; i < estilos.length; i++) {
+                if (posicao - 1 == i) {
+                    decisao = estilos[i];
+                }
+            }
+
+            fetch("/usuarios/votoEstilo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    votoServer: decisao
+                })
+            }).then(function (resposta) {
+    
+                console.log("resposta: ", resposta);
+    
+                if (resposta.ok) {
+    
+                    window.alert("Voto cadastrado com sucesso!");
+                    window.location = 'index.html';
+
+                    registrarVotoEstilo(decisao);
                     
                 } else {
                     throw ("Houve um erro ao tentar votar! Tente reiniciar a página.");
@@ -158,8 +209,6 @@
     
             return false;
         }
-        
-
     }
 
     function carregarAlbuns() {
@@ -206,6 +255,112 @@
         })
 
         return false;
+
+    }
+
+    function carregarEstilos() {
+
+        fetch("/usuarios/getStyles", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                resposta.json().then(json => {
+                    let topVotos = JSON.stringify(json); 
+
+                    var containerEstilo = document.querySelector('.container_estilos');
+                    var nodeEstilo = containerEstilo.querySelectorAll('li');
+                    console.log(nodeEstilo);
+                    nodeEstilo.forEach((v, i) => {
+                        v.innerHTML = json[i].nomeEstilo;
+                        estilos.push(json[i].nomeEstilo);
+                    })
+                
+                    return topVotos;
+                });
+
+            } else {
+
+                console.log("Houve um erro ao carregar os estilos!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function registrarVotoArtista(decisao) {
+
+        fetch("/usuarios/registroVotoArtista", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                votoServer: decisao,
+                emailServer: sessionStorage.EMAIL_USUARIO
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                window.alert("Voto cadastrado com sucesso!");
+                window.location = 'index.html';
+                
+            } else {
+                throw ("Houve um erro ao tentar votar! Tente reiniciar a página.");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
+    function registrarVotoEstilo(decisao) {
+
+        fetch("/usuarios/registroVotoEstilo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    votoServer: decisao,
+                    emailServer: sessionStorage.EMAIL_USUARIO
+                })
+            }).then(function (resposta) {
+    
+                console.log("resposta: ", resposta);
+    
+                if (resposta.ok) {
+    
+                    window.alert("Voto cadastrado com sucesso!");
+                    window.location = 'index.html';
+                    
+                } else {
+                    throw ("Houve um erro ao tentar votar! Tente reiniciar a página.");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    
+            return false;
     }
 
 </script>
