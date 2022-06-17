@@ -11,10 +11,9 @@
     <script src="./js/funcoes.js"></script>
 
     <link rel="stylesheet" href="./css/indexStyle.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body>
+<body onload="carregarAlbuns()">
     <div class="header">
         <div class="container_header_main">
             <h1><a href="#">Go, Music!</a></h1>
@@ -55,41 +54,36 @@
             <h2 class="titulo_lista">Qual o seu <strong>artista</strong> favorito?</h2>
         </div>
 
-        <div class="container_lista">
+        <div class="container_lista" id="container_create_divs">
             <ul class="lista" id="artistas">
-                <li class="container_album">
-                    <img class="album" src="https://i.discogs.com/MkaVNDn2huuA2XqWDRQyLH3jjML7DiXzuzZo_lOfABo/rs:fit/g:sm/q:90/h:701/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTE2MDI3/ODctMTUxNTI3ODEy/NC04Mjc0LmpwZWc.jpeg">
-                    <strong class="nome_artista"></strong>
+                <li onclick="votar(1)" class="container_album">
+                    <img class="album" src="">
+                    <strong id="top1" class="nome_artista">joao</strong>
                 </li>
 
-                <li class="container_album">
-                    <img class="album" src="https://i.discogs.com/MkaVNDn2huuA2XqWDRQyLH3jjML7DiXzuzZo_lOfABo/rs:fit/g:sm/q:90/h:701/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTE2MDI3/ODctMTUxNTI3ODEy/NC04Mjc0LmpwZWc.jpeg">
-                    <strong class="nome_artista"></strong>
+                <li onclick="votar(2)" class="container_album">
+                    <img class="album" src="">
+                    <strong id="top2" class="nome_artista"></strong>
                 </li>
 
-                <li class="container_album">
-                    <img class="album" src="https://i.discogs.com/MkaVNDn2huuA2XqWDRQyLH3jjML7DiXzuzZo_lOfABo/rs:fit/g:sm/q:90/h:701/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTE2MDI3/ODctMTUxNTI3ODEy/NC04Mjc0LmpwZWc.jpeg">
-                    <strong class="nome_artista"></strong>
+                <li onclick="votar(3)" class="container_album">
+                    <img class="album" src="">
+                    <strong id="top3" class="nome_artista"></strong>
                 </li>
 
-                <li class="container_album">
-                    <img class="album" src="https://i.discogs.com/MkaVNDn2huuA2XqWDRQyLH3jjML7DiXzuzZo_lOfABo/rs:fit/g:sm/q:90/h:701/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTE2MDI3/ODctMTUxNTI3ODEy/NC04Mjc0LmpwZWc.jpeg">
-                    <strong class="nome_artista"></strong>
+                <li onclick="votar(4)" class="container_album">
+                    <img class="album" src="">
+                    <strong id="top4" class="nome_artista"></strong>
                 </li>
 
-                <li class="container_album">
-                    <img class="album" src="https://i.discogs.com/MkaVNDn2huuA2XqWDRQyLH3jjML7DiXzuzZo_lOfABo/rs:fit/g:sm/q:90/h:701/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTE2MDI3/ODctMTUxNTI3ODEy/NC04Mjc0LmpwZWc.jpeg">
-                    <strong class="nome_artista"></strong>
+                <li onclick="votar(5)" class="container_album">
+                    <img class="album" src="">
+                    <strong id="top5" class="nome_artista"></strong>
                 </li>
 
-                <li class="container_album">
-                    <img class="album" src="https://i.discogs.com/MkaVNDn2huuA2XqWDRQyLH3jjML7DiXzuzZo_lOfABo/rs:fit/g:sm/q:90/h:701/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTE2MDI3/ODctMTUxNTI3ODEy/NC04Mjc0LmpwZWc.jpeg">
-                    <strong class="nome_artista"></strong>
-                </li>
-                
-                <li class="container_album">
-                    <img class="album" src="https://i.discogs.com/MkaVNDn2huuA2XqWDRQyLH3jjML7DiXzuzZo_lOfABo/rs:fit/g:sm/q:90/h:701/w:500/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTE2MDI3/ODctMTUxNTI3ODEy/NC04Mjc0LmpwZWc.jpeg">
-                    <strong class="nome_artista"></strong>
+                <li onclick="votar(6)" class="container_album">
+                    <img class="album" src="">
+                    <strong id="top6" class="nome_artista"></strong>
                 </li>
 
                 
@@ -118,5 +112,100 @@
 
 <script>
 
+    var artistas = [];
+
+    function votar(posicao) {
+
+        var selecionado;
+
+        if (sessionStorage.length <= 0) {
+            alert('Faça Login para conseguir votar!')
+        } else {
+    
+            for (let i = 0; i < artistas.length; i++) {
+    
+                if (posicao - 1 == i) {
+                    selecionado = artistas[i];
+                }
+    
+            }
+    
+            fetch("/usuarios/votoUsuario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    votoServer: selecionado,
+                    emailServer: sessionStorage.EMAIL_USUARIO
+                })
+            }).then(function (resposta) {
+    
+                console.log("resposta: ", resposta);
+    
+                if (resposta.ok) {
+    
+                    window.alert("Voto cadastrado com sucesso!");
+                    
+                } else {
+                    throw ("Houve um erro ao tentar votar! Tente reiniciar a página.");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    
+            return false;
+        }
+        
+
+    }
+
+    function carregarAlbuns() {
+
+        fetch("/usuarios/getAlbums", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+
+                resposta.json().then(json => {
+                    let topVotos = JSON.stringify(json); 
+                    // console.log(topVotos);
+
+                    var palavra = document.querySelector('.container_lista');
+                    var nodePalavra = palavra.querySelectorAll('img');
+                    nodePalavra.forEach((v, i) => {
+                        v.src = json[i].imgAlbum;
+                    })
+
+                    var nodeNome = palavra.querySelectorAll('strong');
+                    nodeNome.forEach((v, i) => {
+                        v.innerHTML = json[i].nomeArtista;   
+                        artistas.push(json[i].nomeArtista)
+                    })
+                
+                    return topVotos;
+                });
+
+            } else {
+
+                console.log("Houve um erro ao carregar os albuns!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
 
 </script>
