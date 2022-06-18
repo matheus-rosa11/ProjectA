@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Em Alta</title>
+    <link rel="stylesheet" href="css/emaltaStyle.css">
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+    <script src="../js/funcoes.js"></script>
+</head>
+<body onload="graficoArtista(), graficoEstilo()">
+    <div class="header">
+        <div class="container_header_main">
+            <h1><a href="index.html">Go, Music!</a></h1>
+            <ul class="menu">
+                <a href="index.html">
+                    <li>HOME</li>
+                </a>
+                <a href="sobre.html">
+                    <li>CONHEÇA-ME</li>
+                </a>
+                <a href="emalta.html">
+                    <li id="atual">EM ALTA</li>
+                </a>
+            </ul>
+
+            <ul class="cadLog">
+                <a href="cadastro.html">
+                    <li>CADASTRO</li>
+                </a>
+                <li id="barra">|</li>
+                <a href="login.html">
+                    <li>LOGIN</li>
+                </a>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="container_graficos">
+            <div class="container_grafico">
+                <h1>Artistas Mais Populares</h1>
+                <div class="graph">
+                    <canvas id="canvas_grafico"></canvas>
+                </div>
+            </div>
+            <div class="container_grafico">
+                <h1>Estilos Mais Populares</h1>
+                <div class="graph">
+                    <canvas id="canvas_grafico_estilo"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+    function graficoArtista() {
+
+        window.onload = obterDadosGrafico(1)
+    
+        function obterDadosGrafico(idAquario) {
+            // alterarTitulo(idAquario)
+    
+            // if (proximaAtualizacao != undefined) {
+            //     clearTimeout(proximaAtualizacao);
+            // }
+    
+            fetch(`/medidas/ultimas/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
+    
+                        plotarGrafico(resposta, idAquario);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+    
+    
+    
+    
+        function plotarGrafico(resposta, idAquario) {
+            console.log('iniciando plotagem do gráfico...');
+    
+            var dados = {
+                labels: [],
+                datasets: [
+                    {
+                        // yAxisID: 'y-umidade',
+                        label: 'Votos',
+                        borderColor: '#333333',
+                        backgroundColor: '#FEC401',
+                        color: '#FFFFFF',
+                        fill: true,
+                        data: []
+                    }
+                ]
+            };
+    
+            for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                dados.labels.push(registro.nomeArtista); //EIXO X DO GRAFICO
+                dados.datasets[0].data.push(registro.votos); //EIXO Y DO GRAFICO
+                // dados.datasets[1].data.push(registro.temperatura);
+            }
+    
+            console.log(JSON.stringify(dados));
+    
+            var ctx = canvas_grafico.getContext('2d');
+            window.grafico_linha = new Chart(ctx, {
+                type: 'bar',
+                data: dados,
+                options: {
+                    scales: {
+                        y: {
+                        ticks: { color: '#fff' }
+                    },
+                    x: {
+                        ticks: { color: '#fff' }
+                    },
+                        yAxes: [{
+                            // type: 'linear',
+                            // display: true,
+                            // position: 'left',
+                            // id: 'y-temperatura',
+                            ticks: {
+                                beginAtZero: true,
+                                min: 0
+                            }
+                        }],
+                    },
+                }
+            });
+    
+            // setTimeout(() => atualizarGrafico(idAquario, dados), 2000);
+        }
+    }
+
+    function graficoEstilo() {
+
+        window.onload = obterDadosGrafico(1)
+
+        function obterDadosGrafico(idAquario) {
+            // alterarTitulo(idAquario)
+
+            // if (proximaAtualizacao != undefined) {
+            //     clearTimeout(proximaAtualizacao);
+            // }
+
+            fetch(`/medidas/ultimasEstilo/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
+
+                        plotarGrafico(resposta, idAquario);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+
+
+
+        function plotarGrafico(resposta, idAquario) {
+            console.log('iniciando plotagem do gráfico...');
+
+            var dados = {
+                labels: [],
+                datasets: [
+                    {
+                        // yAxisID: 'y-umidade',
+                        label: 'Votos',
+                        borderColor: '#333333',
+                        backgroundColor: '#FEC401',
+                        color: '#FFFFFF',
+                        fill: true,
+                        data: []
+                    }
+                ]
+            };
+
+            for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                dados.labels.push(registro.nomeEstilo); //EIXO X DO GRAFICO
+                dados.datasets[0].data.push(registro.votos); //EIXO Y DO GRAFICO
+                // dados.datasets[1].data.push(registro.temperatura);
+            }
+
+            console.log(JSON.stringify(dados));
+
+            var ctx = canvas_grafico_estilo.getContext('2d');
+            window.grafico_linha = new Chart(ctx, {
+                type: 'bar',
+                data: dados,
+                options: {
+                    scales: {
+                        y: {
+                        ticks: { color: '#fff' }
+                    },
+                    x: {
+                        ticks: { color: '#fff' }
+                    },
+                        yAxes: [{
+                            // type: 'linear',
+                            // display: true,
+                            // position: 'left',
+                            // id: 'y-temperatura',
+                            ticks: {
+                                beginAtZero: true,
+                                min: 0
+                            }
+                        }],
+                    },
+                }
+            });
+
+            // setTimeout(() => atualizarGrafico(idAquario, dados), 2000);
+        }
+    }
+
+</script>

@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Prompt:ital,wght@1,600&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+}
+
+.header {
+    display: flex;
+    background: #FFFFFFED;
+}
+
+.container_header_main {
+    justify-content: space-around;
+    display: flex;
+    height: 60px;
+    width: 100%;
+    align-items: center;
+    border-bottom: 1px solid black;
+    overflow: hidden;
+}
+
+.container_header_main h1 a {
+    text-decoration: none;
+    color: black
+}
+
+.container_header_main h1 {
+    transform: scale(1);
+    transition: all .2s ease-in-out;
+    transition-duration: 0.16s;
+}
+
+.container_header_main h1:hover {
+    transform: scale(1.03);
+    transition: all .2s ease-in-out;
+    transition-duration: 0.16s;
+    text-shadow: 3px 2px 1px #FEC401;
+    cursor: pointer
+}
+
+.container_header_main .menu {
+    display: flex;
+    align-items: center;
+    width: 400px;
+    height: 30px;
+    justify-content: space-between;
+}
+
+.container_header_main ul li {
+    list-style: none;
+    border-bottom: 2px solid #ffffff00;
+}
+
+.container_header_main ul a {
+    text-decoration: none;
+}
+
+.container_header_main ul a li {
+    color: #000;
+}
+
+.container_header_main ul a li:hover {
+    border-bottom: 2px solid #FEC401;
+    cursor: pointer;
+}
+
+.container_header_main .cadLog {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 160px;
+    height: 30px;
+    text-align: center;
+}
+
+.container_header_main .cadLog li {
+    color: #000;
+    border: 2px solid #ffffff00;
+}
+
+
+#barra:hover {
+    cursor: default;
+    border: none;
+}
+
+#atual {
+    font-weight: 500;
+    border-bottom: 2px solid #FEC401;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    background: rgb(12, 12, 12);
+}
+
+.container .container_container_pessoa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 35%;
+    width: 100%;
+    background: rgb(45, 45, 45);
+}
+
+.container .container_dados_pessoa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90%;
+    overflow: hidden;
+}
+
+#nome {
+    font-size: 24px;
+    color: #e7be36;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+#nome:hover {
+    cursor: default;
+}
+
+.container .container_img_pessoa {
+    height: 70%;
+    margin: 20px;
+    overflow: hidden;
+    border-bottom: 2px solid #FEC401;
+    transition: all .2s ease-in-out;
+    transition-duration: 0.2s;
+}
+
+.container .container_img_pessoa:hover {
+    transform: scale(1.04);
+    transition: all .2s ease-in-out;
+    transition-duration: 0.2s;
+    box-shadow: 5px 5px 8px black;
+}
+
+.container .container_img_pessoa img {
+    height: 100%;
+}
+
+.container .container_texto {
+    width: 60%;
+    margin: 30px;
+    background: rgb(164, 164, 164);
+}
+
+.container .container_texto p {
+    font-size: 24px;
+    padding: 20px;
+}
+
+.container_links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 25%;
+    width: 60%;
+    background: rgb(164, 164, 164)
+}
+
+.container_redes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.container_links .titulo_redes {
+    font-size: 30px;
+    font-weight: 400;
+    margin-top: 20px;
+}
+
+.container_links .lista_redes {
+    margin: 20px;
+    justify-content: space-evenly;
+}
+
+.container_links .lista_redes .redes_sociais {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.icone {
+    width: 20px;
+}
+
+.lista_redes a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.lista_redes a:hover {
+    color: white;
+}

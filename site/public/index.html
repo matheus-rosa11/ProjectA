@@ -18,14 +18,14 @@
         <div class="container_header_main">
             <h1><a href="#">Go, Music!</a></h1>
             <ul class="menu">
-                <a href="#">
-                    <li>HOME</li>
+                <a href="index.html">
+                    <li id="atual">HOME</li>
                 </a>
                 <a href="sobre.html">
                     <li>CONHEÇA-ME</li>
                 </a>
-                <a href="novidades.html">
-                    <li>NOVIDADES</li>
+                <a href="emalta.html">
+                    <li>EM ALTA</li>
                 </a>
             </ul>
 
@@ -170,7 +170,7 @@
 
         if (sessionStorage.length <= 0) {
             alert('Faça Login para votar!')
-            window.location = 'index.html';
+            window.location = 'login.html';
         } else {
 
             for (let i = 0; i < estilos.length; i++) {

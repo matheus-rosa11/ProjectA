@@ -87,6 +87,16 @@ body {
     border: 2px solid #ffffff00;
 }
 
+#barra:hover {
+    cursor: default;
+    border: none;
+}
+
+#atual {
+    font-weight: 500;
+    border-bottom: 2px solid #FEC401;
+}
+
 .container_main {
     display: flex;
     height: 90vh;
