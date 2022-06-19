@@ -45,12 +45,16 @@
                 <div class="graph">
                     <canvas id="canvas_grafico"></canvas>
                 </div>
+                <p>Seu último voto: <strong id="ultimoArtista"></strong></p>
+
             </div>
             <div class="container_grafico">
                 <h1>Estilos Mais Populares</h1>
                 <div class="graph">
                     <canvas id="canvas_grafico_estilo"></canvas>
                 </div>
+                <p>Seu último voto: <strong id="ultimoEstilo"></strong></p>
+
             </div>
         </div>
     </div>
@@ -58,6 +62,63 @@
 </html>
 
 <script>
+
+    function puxarUltimosDados() {
+
+        fetch("/usuarios/getLastData", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: sessionStorage.EMAIL_USUARIO
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    var objeto = json;
+                    
+                    
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function graficoArtista() {
 
@@ -234,5 +295,6 @@
             // setTimeout(() => atualizarGrafico(idAquario, dados), 2000);
         }
     }
+
 
 </script>

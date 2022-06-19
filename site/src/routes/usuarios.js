@@ -44,4 +44,8 @@ router.post("/registroVotoArtista", function (req, res) {
     usuarioController.registrarVotoArtista(req, res);
 });
 
+router.post("/getLastData", function (req, res) {
+    usuarioController.getLastData(req, res);
+});
+
 module.exports = router;

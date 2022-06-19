@@ -91,9 +91,18 @@ function registrarVotoArtista(voto, email) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        UPDATE usuario SET artistaFavorito = ${voto} where emailUsuario = '${email}';
+        UPDATE usuario SET artistaFavorito = '${voto}' where emailUsuario = '${email}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function getLastData(email) {
+
+    var instrucao = `
+        SELECT estiloFavorito, artistaFavorito FROM usuario WHERE emailUsuario = '${email}';
+    `;
+
     return database.executar(instrucao);
 }
 
@@ -106,5 +115,6 @@ module.exports = {
     votarEstilo,
     registrarVotoEstilo,
     registrarVotoArtista,
+    getLastData,
     listar,
 };
