@@ -119,6 +119,11 @@ body {
     height: 60%;
 }
 
+.container_graficos {
+    text-align: center;
+    color: #BDBDBD;
+}
+
 .container_grafico {
     background: rgb(62, 62, 62);
     /* background: red; */
@@ -132,6 +137,7 @@ body {
     color: #FEC401;
     padding: 10px
 }
+
 
 
 

@@ -9,7 +9,7 @@
     <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
     <script src="../js/funcoes.js"></script>
 </head>
-<body onload="graficoArtista(), graficoEstilo()">
+<body onload="graficoArtista(), graficoEstilo(), puxarUltimosDados()">
     <div class="header">
         <div class="container_header_main">
             <h1><a href="index.html">Go, Music!</a></h1>
@@ -62,63 +62,6 @@
 </html>
 
 <script>
-
-    function puxarUltimosDados() {
-
-        fetch("/usuarios/getLastData", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: sessionStorage.EMAIL_USUARIO
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-
-                    var objeto = json;
-                    
-                    
-
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function graficoArtista() {
 
@@ -294,6 +237,49 @@
 
             // setTimeout(() => atualizarGrafico(idAquario, dados), 2000);
         }
+    }
+
+    function puxarUltimosDados() {
+
+        fetch("/usuarios/getLastData", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: sessionStorage.EMAIL_USUARIO
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                // console.log(resposta);
+
+                resposta.json().then(json => {
+                    let favoritos = json;
+                    
+                    let artistaFavorito = favoritos[0].artistaFavorito;
+                    let estiloFavorito = favoritos[0].estiloFavorito;
+
+                    document.getElementById('ultimoArtista').innerHTML = artistaFavorito;
+                    document.getElementById('ultimoEstilo').innerHTML = estiloFavorito;
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
     }
 
 
