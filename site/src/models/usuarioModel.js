@@ -79,7 +79,7 @@ function registrarVotoEstilo(voto, email) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        UPDATE usuario SET estiloFavorito = ${voto} where emailUsuario = '${email}';
+        UPDATE usuario SET estiloFavorito = '${voto}' where emailUsuario = '${email}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
