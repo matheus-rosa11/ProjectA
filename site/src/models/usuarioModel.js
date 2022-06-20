@@ -21,7 +21,7 @@ function getAlbums() {
 function getStyles() {
 
     var instrucao = `
-        SELECT nomeEstilo, votos FROM estilos ORDER BY votos DESC LIMIT 5;
+        SELECT nomeEstilo, votos FROM estilos ORDER BY votos DESC;
     `;
 
     return database.executar(instrucao);
