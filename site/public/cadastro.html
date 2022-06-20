@@ -95,9 +95,16 @@
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
         if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
-           
-            alert('Mensagem de erro para todos os campos em branco');
+            alert('Preencha todos os campos!');
             return false;
+        }
+
+        if (senhaVar != confirmacaoSenhaVar) {
+            alert('As senhas não coincidem!');
+        }
+
+        if (emailVar.indexOf('@') == -1 && emailVar.indexOf('.') == -1) {
+            alert('E-mail inválido!');
         }
 
         // Enviando o valor da nova input
